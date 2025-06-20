@@ -1,0 +1,31 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 16px;
+}
+
+.textarea {
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  resize: vertical;
+  font-family: inherit;
+  transition: border-color 0.2s ease;
+}
+
+.textarea:focus {
+  outline: none;
+  border-color: #0070f3; /* Primary focus color */
+  box-shadow: 0 0 0 2px rgba(0, 112, 243, 0.2);
+}
+
+.error {
+  border-color: #e53935;
+}
+
+.errorMessage {
+  color: red;
+  font-size: 13px;
+}

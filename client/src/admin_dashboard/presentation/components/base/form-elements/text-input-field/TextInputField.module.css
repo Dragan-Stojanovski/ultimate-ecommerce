@@ -1,0 +1,32 @@
+.input_field_wrapper {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 16px;
+  font-family: "Roboto", sans-serif;
+}
+
+label {
+  font-weight: 500;
+  color: var(--admin-bg);
+}
+
+input {
+  padding: 10px 12px;
+  border: 1px solid var(--admin-light);
+  border-radius: 6px;
+  font-size: 14px;
+  background-color: #fff;
+  color: #333;
+  transition: border-color 0.2s ease;
+}
+
+input:focus {
+  border-color: var(--admin-bg);
+  outline: none;
+}
+
+.error {
+  margin-top: 0px;
+  color: red;
+  font-size: 13px;
+}

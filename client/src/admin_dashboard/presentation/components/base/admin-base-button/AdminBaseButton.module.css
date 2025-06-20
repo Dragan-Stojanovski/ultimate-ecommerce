@@ -1,0 +1,24 @@
+.base_btn {
+  height: 40px;
+  width: 120px;
+  background: transparent;
+  border: 1px solid var(--admin-bg);
+  border-radius: 30px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.base_btn:hover {
+  background: var(--admin-bg);
+  color: var(--admin-text);
+}
+
+.destructive {
+  border-color: #d93025;
+  color: #d93025;
+}
+
+.destructive:hover {
+  background-color: #d93025;
+  color: #fff;
+}
