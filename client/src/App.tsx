@@ -8,6 +8,7 @@ import AdminCustomersPage from "./admin_dashboard/presentation/pages/admin-custo
 import AdminOrdersPage from "./admin_dashboard/presentation/pages/admin-orders-page";
 import AdminPromotionsPage from "./admin_dashboard/presentation/pages/admin-promotions-page";
 import AdminAnalyticsPage from "./admin_dashboard/presentation/pages/admin-analytics-page";
+import ProductDetailsPage from "./admin_dashboard/presentation/pages/product-details-page";
 
 const App = () => {
   const location = useLocation();
@@ -21,6 +22,7 @@ const App = () => {
         <Route path="/admin-dashboard" element={<AdminDashboard />}>
           <Route path="nav-categories" element={<AdminNavCategoriesPage />} />
           <Route path="products" element={<AdminProductsPage />} />
+        <Route path="products/:id" element={<ProductDetailsPage />} /> 
           <Route path="customers" element={<AdminCustomersPage />} />
           <Route path="orders" element={<AdminOrdersPage />} />
           <Route path="promotions" element={<AdminPromotionsPage />} />

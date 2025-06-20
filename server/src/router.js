@@ -21,7 +21,7 @@ router.delete("/nav-categories/:id", deleteCategory);
 router.post("/products", createProduct);
 router.get("/products", getAllProducts);
 router.get("/products/:id", getProductById);
-router.put("/products/:id", updateProduct);
+router.patch("/products/:id", updateProduct);
 router.delete("/products/:id", deleteProduct);
 
 module.exports = router;
