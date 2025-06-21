@@ -4,7 +4,7 @@ import {
   type Control,
   type RegisterOptions,
 } from "react-hook-form";
-import styles from "./AdminSelect.module.css";
+import styles from "./AdminSelectController.module.css";
 
 interface IAdminSelectControllerProps {
   name: string;

@@ -1,9 +1,10 @@
-import type { Dispatch, SetStateAction } from "react";
+import { useState, type Dispatch, type SetStateAction } from "react";
 import type { IProductResponse } from "../../../../../domain/usecases/product/IProductResponse";
 import { deleteProduct } from "../../../../../infra/http/api-calls/products/deleteProduct";
 import type { IAdminBaseTableColumn } from "../../../components/base/admin-base-table";
 import AdminBaseTable from "../../../components/base/admin-base-table";
 import { Link } from "react-router-dom";
+import DeleteConfirmationDialog from "../../../components/base/delete-confirmation-dialog";
 
 interface IProductsTableProps {
   data: IProductResponse[];
@@ -14,12 +15,15 @@ const ProductsTable = ({
   data,
   setProductsData,
 }: IProductsTableProps): React.JSX.Element => {
+    const [deletionState, setDeletionState] = useState<string | null>(null);
+  
   async function handleDelete(id: string) {
     try {
       await deleteProduct(id);
       setProductsData((prevProducts) =>
-        prevProducts.filter((product) => product.id !== id)
+        prevProducts.filter((product) => product._id !== id)
       );
+      setDeletionState(null)
     } catch (error) {
       console.log(error);
     }
@@ -33,7 +37,7 @@ const ProductsTable = ({
       },
     },
     { header: "Description", accessor: "description" },
-    { header: "Price", accessor: "price" },
+    { header: "Price", render: (_, row) => { return (<span>${row.price.toFixed(2)}</span>)  } },
     { header: "Category", accessor: "category" },
     {
       header: "Image",
@@ -55,8 +59,16 @@ const ProductsTable = ({
     { header: "Operation", render: "delete" },
   ];
 
-  return (
-    <AdminBaseTable columns={columns} data={data} onDelete={handleDelete} />
+  return (<>
+    <AdminBaseTable columns={columns} data={data} onDelete={setDeletionState} />
+      {deletionState && (
+        <DeleteConfirmationDialog
+          deletionState={deletionState}
+          setDeletionState={setDeletionState}
+          onConfirm={() => handleDelete(deletionState)}
+        />
+      )}
+        </>
   );
 };
 

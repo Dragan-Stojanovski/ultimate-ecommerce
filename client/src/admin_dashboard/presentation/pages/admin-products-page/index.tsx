@@ -5,13 +5,16 @@ import type { IProductResponse } from "../../../../domain/usecases/product/IProd
 import { getProducts } from "../../../../infra/http/api-calls/products/getProducts";
 import AdminBaseModalWindow from "../../components/base/admin-base-modal-window";
 import AdminBaseButton from "../../components/base/admin-base-button";
-import styles from './AdminProductsPage.module.css';
+import styles from "./AdminProductsPage.module.css";
+import ProductsFilter from "./products-filter";
+import SetMetaInfo from "../../../../infra/utility/setMetaInfo";
 
 const AdminProductsPage = (): React.JSX.Element => {
-  const [productsData, setProductsData] = useState<IProductResponse[] | []>([]);
+  const [productsData, setProductsData] = useState<IProductResponse[]>([]);
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
-  async function getProductsDataFn() {
-    const result = await getProducts();
+
+  async function getProductsDataFn(title = "", category = "") {
+    const result = await getProducts(title, category);
     setProductsData(result.data);
   }
 
@@ -19,16 +22,28 @@ const AdminProductsPage = (): React.JSX.Element => {
     getProductsDataFn();
   }, []);
 
+  const handleFilterSubmit = (data: { title: string; category: string }) => {
+    getProductsDataFn(data.title, data.category);
+  };
   return (
     <>
-     <div className={styles.products_header}>
-      <h1>Products Page</h1>
-      <AdminBaseButton
-        type="button"
-        content="Add Product"
-        onClick={() => setIsModalVisible(true)}
+      <SetMetaInfo
+        title={"Admin Products"}
+        description={"Admin Products Meta"}
       />
+      <ProductsFilter onFilterSubmit={handleFilterSubmit} />
+
+      <div className={styles.products_header}>
+        <h1>Products</h1>
+        <div className={styles.products_controls}>
+          <AdminBaseButton
+            type="button"
+            content="Add Product"
+            onClick={() => setIsModalVisible(true)}
+          />
+        </div>
       </div>
+
       <AdminBaseModalWindow
         title="Add Product"
         isVisible={isModalVisible}
@@ -39,6 +54,7 @@ const AdminProductsPage = (): React.JSX.Element => {
           setIsModalVisible={setIsModalVisible}
         />
       </AdminBaseModalWindow>
+
       <ProductsTable setProductsData={setProductsData} data={productsData} />
     </>
   );

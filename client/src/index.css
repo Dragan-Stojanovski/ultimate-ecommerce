@@ -8,6 +8,9 @@
 }
 
 :root {
+
+  --white-color:white;
+  --black-color:black;
   --admin-bg: #1e1e2f;
   --admin-bg-hover: #29294d;
   --admin-bg-active: #41416d;

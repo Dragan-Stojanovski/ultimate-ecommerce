@@ -31,14 +31,18 @@ exports.createProduct = async (req, res) => {
 };
 
 exports.getAllProducts = async (req, res) => {
-  try {
-    const products = await Product.find().populate("category");
-    res.status(200).json(products);
-  } catch (error) {
-    res
-      .status(500)
-      .json({ message: "Error in fetching products", error: error.message });
+  const { title, category } = req.body;
+
+  const filter = {};
+  if (title) {
+    filter.title = { $regex: `^${title}`, $options: "i" }; // case-insensitive prefix
   }
+  if (category) {
+    filter.category = category;
+  }
+
+  const products = await Product.find(filter);
+  res.json(products);
 };
 
 exports.getProductById = async (req, res) => {

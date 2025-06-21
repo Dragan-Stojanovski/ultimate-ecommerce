@@ -1,32 +1,19 @@
 import styles from "./TextInputField.module.css";
 import { Controller } from "react-hook-form";
-import type { Control } from "react-hook-form";
-import type { RegisterOptions } from "react-hook-form";
+import type { Control, RegisterOptions } from "react-hook-form";
 
-/**
- * Properties for the TextField component.
- *
- * @param type - The input type (e.g., "text", "password", etc.).
- * @param name - The name attribute of the input element, used to identify the form data after the form is submitted.
- * @param label - Text label for the input field.
- * @param testId - An identifier used for testing purposes.
- * @param control - The control object from react-hook-form for managing form state.
- * @param rules - Validation rules for the input field, based on react-hook-form's RegisterOptions.
- */
 export interface ITextInputFieldProps {
   type: "text" | "password" | "date" | "number";
-  name: string;
-  label: string;
-  testId: string;
-  control: Control;
+  name?: string;
+  label?: string;
+  testId?: string;
+  control?: Control;
   rules?: RegisterOptions;
   placeholder?: string;
+  value?: string;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
-/**
- * TextField component is a controlled input element integrated with react-hook-form.
- * It utilizes the Controller component from react-hook-form to connect the input to the form state.
- * Props {@link ITextInputFieldProps}
- * */
+
 const TextInputField = ({
   type,
   name,
@@ -35,35 +22,52 @@ const TextInputField = ({
   control,
   rules,
   placeholder,
+  value,
+  onChange,
 }: ITextInputFieldProps): React.JSX.Element => {
+  const inputField = (
+    <input
+      type={type}
+      name={name}
+      placeholder={placeholder}
+      value={value}
+      onChange={onChange}
+      data-testid={testId}
+      className={styles.input}
+    />
+  );
+
   return (
     <div className={styles.input_field_wrapper}>
-      <label htmlFor={name}>{label}</label>
+      {label && <label htmlFor={name}>{label}</label>}
 
-   <>
-      <Controller
-        name={name}
-        control={control}
-        rules={rules}
-        render={({
-          field: { onChange, onBlur, value, ref },
-          fieldState: { error },
-        }) => (
-          <>
-            <input
-              type={type}
-              placeholder={placeholder}
-              onBlur={onBlur}
-              onChange={onChange}
-              value={value}
-              ref={ref}
-              data-testid={testId}
-            />
-            {error && <span className={styles.error}>{error.message}</span>}
-          </>
-        )}
-      />
-      </>
+      {control && name ? (
+        <Controller
+          name={name}
+          control={control}
+          rules={rules}
+          render={({
+            field: { onChange, onBlur, value, ref },
+            fieldState: { error },
+          }) => (
+            <>
+              <input
+                type={type}
+                placeholder={placeholder}
+                onBlur={onBlur}
+                onChange={onChange}
+                value={value}
+                ref={ref}
+                data-testid={testId}
+                className={styles.input}
+              />
+              {error && <span className={styles.error}>{error.message}</span>}
+            </>
+          )}
+        />
+      ) : (
+        inputField
+      )}
     </div>
   );
 };

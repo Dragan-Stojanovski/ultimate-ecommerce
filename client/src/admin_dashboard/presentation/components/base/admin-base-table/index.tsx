@@ -43,7 +43,7 @@ function AdminBaseTable<T extends { id: string }>({
                         type="button"
                         content="Delete"
                         isDestructive
-                        onClick={() => onDelete?.(row.id)}
+                        onClick={() => onDelete?.(row._id)}
                       />
                     ) : col.render ? (
                       col.render(row[col.accessor as keyof T], row)

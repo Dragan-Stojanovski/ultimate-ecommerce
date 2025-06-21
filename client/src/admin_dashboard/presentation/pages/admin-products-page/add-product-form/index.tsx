@@ -25,7 +25,12 @@ const AddProductForm = ({
   async function createProductFn(data: IAddProductRequest) {
     try {
       const newProduct = await addProduct(data);
-      setProductsData((prev) => [...prev, newProduct.data]);
+      const normalizedProduct = {
+      ...newProduct.data,
+      _id: newProduct.data._id ?? newProduct.data.id, 
+    };
+
+    setProductsData((prev) => [...prev, normalizedProduct]);
       setIsModalVisible(false);
     } catch (error) {
       console.log(error);

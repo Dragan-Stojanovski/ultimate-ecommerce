@@ -1,0 +1,33 @@
+.login_page__container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+  background-color: #fffcf9;
+}
+
+.login_page__wrapper {
+  width: 30%;
+  padding: 2rem;
+  background-color: var(--white-color);
+  box-shadow: var(--box-shadow);
+  height: fit-content;
+  border-radius: var(--border-radius-20);
+}
+
+.login_page__field {
+  margin-top: 16px;
+}
+
+.login_page_btn {
+  margin-top: 16px;
+}
+
+@media only screen and (max-width: 600px) {
+  .login_page__wrapper {
+    width: 100%;
+    box-sizing: border-box;
+    box-shadow: none;
+  }
+}

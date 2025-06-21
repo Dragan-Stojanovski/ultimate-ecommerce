@@ -5,7 +5,8 @@ import CategoriesTable from "./components/categories-table";
 import AddCategoryForm from "./components/add-category-form";
 import AdminBaseModalWindow from "../../components/base/admin-base-modal-window";
 import AdminBaseButton from "../../components/base/admin-base-button";
-import styles from './AdminNavCategoriesPage.module.css';
+import styles from "./AdminNavCategoriesPage.module.css";
+import SetMetaInfo from "../../../../infra/utility/setMetaInfo";
 
 const AdminNavCategoriesPage = (): React.JSX.Element => {
   const [categoriesData, setCategoriesData] = useState<INavCategory[] | []>([]);
@@ -22,17 +23,25 @@ const AdminNavCategoriesPage = (): React.JSX.Element => {
 
   return (
     <>
-    <div className={styles.navcategories_header}>
-      <h1>Navigation Categories</h1>
-      <AdminBaseButton
-        type="button"
-        content="Add Category"
-        onClick={() => setIsModalVisible(true)}
+    
+      <div className={styles.navcategories_header}>
+      <SetMetaInfo
+        title={"Nav Categories"}
+        description={"Nav Categories Meta"}
       />
+        <h1>Navigation Categories</h1>
+        <AdminBaseButton
+          type="button"
+          content="Add Category"
+          onClick={() => setIsModalVisible(true)}
+        />
       </div>
-      <CategoriesTable data={categoriesData} setCategoriesData={setCategoriesData} />
+      <CategoriesTable
+        data={categoriesData}
+        setCategoriesData={setCategoriesData}
+      />
       <AdminBaseModalWindow
-      title="Add Category"
+        title="Add Category"
         isVisible={isModalVisible}
         onClose={() => setIsModalVisible(false)}
       >

@@ -8,9 +8,9 @@
   width: 100%;
 }
 
-.label {
-  font-size: 16px;
-  color: var(--black-color, #222);
+label {
+  font-weight: 500;
+  color: var(--admin-bg);
 }
 
 .select {
@@ -19,13 +19,13 @@
   border-radius: 8px;
   border: 1px solid var(--dark-secondary-color, #ccc);
   background-color: var(--white-color, #fff);
-  transition: border-color 0.2s ease;
+  transition: border-color 0.3s ease;
   width: 100%;
 }
 
 .select:focus {
   outline: none;
-  border-color: var(--primary-color, #007bff);
+  border-color: var(--primary-color, var(--admin-bg));
 }
 
 .error {

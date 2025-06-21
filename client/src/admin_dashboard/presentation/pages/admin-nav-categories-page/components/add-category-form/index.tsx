@@ -22,7 +22,11 @@ const AddCategoryForm = ({
   async function createCategoryFn(data: INavCategory) {
     try {
       const newCategory = await addCategory(data);
-      setCategoriesData((prev) => [...prev, newCategory.data]);
+            const normalizedCategory = {
+      ...newCategory.data,
+      _id: newCategory.data._id ?? newCategory.data.id, 
+    };
+      setCategoriesData((prev) => [...prev, normalizedCategory]);
 
       setIsModeVisible(false);
     } catch (error) {

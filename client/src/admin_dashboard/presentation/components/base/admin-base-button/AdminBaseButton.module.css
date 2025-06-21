@@ -1,6 +1,7 @@
 .base_btn {
   height: 40px;
   width: 120px;
+  min-width:120px;
   background: transparent;
   border: 1px solid var(--admin-bg);
   border-radius: 30px;

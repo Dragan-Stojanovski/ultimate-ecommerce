@@ -6,6 +6,7 @@ import styles from "./ProductDetailsPage.module.css";
 import AdminBaseButton from "../../components/base/admin-base-button";
 import AdminBaseModalWindow from "../../components/base/admin-base-modal-window";
 import EditProductForm from "./components/editProductForm";
+import SetMetaInfo from "../../../../infra/utility/setMetaInfo";
 
 const ProductDetailsPage = (): React.JSX.Element => {
   const { id } = useParams<{ id: string }>();
@@ -34,56 +35,66 @@ const ProductDetailsPage = (): React.JSX.Element => {
   if (!product) return <p className={styles.error}>Product not found.</p>;
 
   return (
-    <div className={styles.container}>
-      <h1 className={styles.title}>{product.title}</h1>
-      <div className={styles.details}>
-        <img src={product.image} alt={product.title} className={styles.image} />
-        <div className={styles.info}>
-          <p>
-            <strong>ID:</strong> {product._id}
-          </p>
-          <p>
-            <strong>Category:</strong> {product.category}
-          </p>
-          <p>
-            <strong>Price:</strong> ${product.price.toFixed(2)}
-          </p>
-          <p>
-            <strong>Description:</strong> {product.description}
-          </p>
-          {product.createdAt && (
-            <p>
-              <strong>Created At:</strong>{" "}
-              {new Date(product.createdAt).toLocaleString()}
-            </p>
-          )}
-          {product.updatedAt && (
-            <p>
-              <strong>Updated At:</strong>{" "}
-              {new Date(product.updatedAt).toLocaleString()}
-            </p>
-          )}
-          <AdminBaseButton
-            type={"button"}
-            content={"EditProduct"}
-            onClick={() => setIsModalVisible(true)}
+    <>
+      <SetMetaInfo
+        title={`${product.title} Details `}
+        description={"Product Details Meta"}
+      />
+      <div className={styles.container}>
+        <h1 className={styles.title}>{product.title}</h1>
+        <div className={styles.details}>
+          <img
+            src={product.image}
+            alt={product.title}
+            className={styles.image}
           />
-
-          <AdminBaseModalWindow
-            title={`Edit Product ${product.title}`}
-            isVisible={isModalVisible}
-            onClose={() => setIsModalVisible(false)}
-          >
-            <EditProductForm
-              productId={product._id}
-              defaultValue={product}
-              setProductsData={setProduct}
-              setIsModalVisible={setIsModalVisible}
+          <div className={styles.info}>
+            <p>
+              <strong>ID:</strong> {product._id}
+            </p>
+            <p>
+              <strong>Category:</strong> {product.category}
+            </p>
+            <p>
+              <strong>Price:</strong> ${product.price.toFixed(2)}
+            </p>
+            <p>
+              <strong>Description:</strong> {product.description}
+            </p>
+            {product.createdAt && (
+              <p>
+                <strong>Created At:</strong>{" "}
+                {new Date(product.createdAt).toLocaleString()}
+              </p>
+            )}
+            {product.updatedAt && (
+              <p>
+                <strong>Updated At:</strong>{" "}
+                {new Date(product.updatedAt).toLocaleString()}
+              </p>
+            )}
+            <AdminBaseButton
+              type={"button"}
+              content={"EditProduct"}
+              onClick={() => setIsModalVisible(true)}
             />
-          </AdminBaseModalWindow>
+
+            <AdminBaseModalWindow
+              title={`Edit Product ${product.title}`}
+              isVisible={isModalVisible}
+              onClose={() => setIsModalVisible(false)}
+            >
+              <EditProductForm
+                productId={product._id}
+                defaultValue={product}
+                setProductsData={setProduct}
+                setIsModalVisible={setIsModalVisible}
+              />
+            </AdminBaseModalWindow>
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

@@ -1,0 +1,10 @@
+.filters_wrapper{
+    display:flex;
+    justify-content: left;
+    gap:20px;
+    align-items:center;
+}
+
+.field_box {
+    width:200px;
+}
